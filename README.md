@@ -1,16 +1,17 @@
-# pokemon
+# Pokémon App - Flutter
 
-A new Flutter project.
+This Flutter app displays a list of Pokémon and allows users to view detailed Pokémon information. It features **responsive UI**, **infinite scrolling (pagination)**, **Flutter BLoC for state management**, and **API integration** with the PokéAPI.
 
-## Getting Started
+## Features
 
-This project is a starting point for a Flutter application.
+**Infinite Scrolling with Pagination** - Fetch Pokémon data dynamically as the user scrolls.  
+**Pokémon Detail View** - Displays Pokémon's abilities, stats, and image.  
+**State Management with Flutter BLoC** - Manages API calls efficiently.  
+**Fully Responsive UI** - Adapts to different screen sizes using `ResponsiveHelper`.  
+**Theming with `TextThemes`** - Centralized styles for typography.  
 
-A few resources to get you started if this is your first Flutter project:
+---
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+## Demo Video
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+
