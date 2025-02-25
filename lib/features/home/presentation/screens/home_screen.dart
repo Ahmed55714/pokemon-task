@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:pokemon/widgets/custom_appBar_widget.dart' show CustomAppBar;
+import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../blocs/pokemon/pokemon_bloc.dart';
+import '../../../../blocs/pokemon/pokemon_event.dart';
+import '../../../../blocs/pokemon/pokemon_state.dart';
+import '../../../../services/api_service.dart';
+import '../../../../widgets/custom_appBar_widget.dart';
 import '../widgets/pokemon_list_tile_widget.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -8,41 +13,50 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final List<Map<String, dynamic>> dummyPokemonList = [
-      {
-        "name": "Pikachu",
-        "imageUrl":
-            "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/25.png",
-        "types": ["Electric"],
-      },
-      {
-        "name": "Charmander",
-        "imageUrl":
-            "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/4.png",
-        "types": ["Fire"],
-      },
-      {
-        "name": "Bulbasaur",
-        "imageUrl":
-            "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png",
-        "types": ["Grass", "Poison"],
-      },
-    ];
     return Scaffold(
       appBar: CustomAppBar(
         text: 'Pokemon List',
       ),
-      body: ListView.builder(
-        padding: const EdgeInsets.all(8.0),
-        itemCount: dummyPokemonList.length,
-        itemBuilder: (context, index) {
-          final pokemon = dummyPokemonList[index];
-          return PokemonListTile(
-            name: pokemon["name"],
-            imageUrl: pokemon["imageUrl"],
-            types: List<String>.from(pokemon["types"]),
-          );
-        },
+      body: BlocProvider(
+        create: (context) => PokemonBloc(apiService: ApiService())
+          ..add(FetchPokemonListEvent(offset: 0)),
+        child: BlocBuilder<PokemonBloc, PokemonState>(
+          builder: (context, state) {
+            if (state is PokemonLoadingState) {
+              return const Center(child: CircularProgressIndicator());
+            }
+            if (state is PokemonErrorState) {
+              return Center(
+                child: Text(
+                  'Error: ${state.message}',
+                  style: TextStyle(color: Colors.red, fontSize: 16),
+                ),
+              );
+            }
+            if (state is PokemonLoadedState) {
+              return ListView.builder(
+                padding: const EdgeInsets.all(8.0),
+                itemCount: state.pokemonList.length,
+                itemBuilder: (context, index) {
+                  final pokemon = state.pokemonList[index];
+                  return PokemonListTile(
+                    name: pokemon.name,
+                    imageUrl: pokemon.imageUrl,
+                    types: pokemon.types,
+                    onTap: () {
+                      Navigator.pushNamed(
+                        context,
+                        '/pokemonDetail',
+                        arguments: pokemon,
+                      );
+                    },
+                  );
+                },
+              );
+            }
+            return const Center(child: Text('No Pokémon available'));
+          },
+        ),
       ),
     );
   }

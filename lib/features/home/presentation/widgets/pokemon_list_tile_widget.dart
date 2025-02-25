@@ -4,12 +4,14 @@ class PokemonListTile extends StatelessWidget {
   final String name;
   final String imageUrl;
   final List<String> types;
+  final VoidCallback? onTap;
 
   const PokemonListTile({
     Key? key,
     required this.name,
     required this.imageUrl,
     required this.types,
+    this.onTap,
   }) : super(key: key);
 
   @override
@@ -27,12 +29,13 @@ class PokemonListTile extends StatelessWidget {
             width: 70,
             height: 70,
             fit: BoxFit.cover,
-            errorBuilder: (context, error, stackTrace) => Image.asset(
-              'assets/images/placeholder.png',
-              fit: BoxFit.cover,
-              width: 70,
-              height: 70,
-            ),
+            errorBuilder:
+                (context, error, stackTrace) => Image.asset(
+                  'assets/images/placeholder.png',
+                  width: 70,
+                  height: 70,
+                  fit: BoxFit.cover,
+                ),
           ),
         ),
         title: Text(
@@ -44,9 +47,7 @@ class PokemonListTile extends StatelessWidget {
           style: TextStyle(fontSize: 14, color: Colors.grey[600]),
         ),
         trailing: const Icon(Icons.arrow_forward_ios),
-        onTap: () {
-          Navigator.of(context).pushNamed('/pokemonDetail');
-        },
+        onTap: onTap,
       ),
     );
   }
