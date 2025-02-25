@@ -26,5 +26,5 @@ Ensure you have the following installed:
 
 ### **Clone the Repository**
 ```sh
-[git clone https://github.com/your-username/pokemon-flutter-app.git](https://github.com/Ahmed55714/pokemon-task.git)
+git clone https://github.com/Ahmed55714/pokemon-task.git
 cd pokemon-flutter-app
