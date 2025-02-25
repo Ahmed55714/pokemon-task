@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import '../../../../constants/app_colors.dart';
+import '../../../../constants/text_theme.dart';
+import '../../../../helper/responsive_helper.dart';
 
 class DetailCard extends StatelessWidget {
   final String title;
@@ -9,32 +12,48 @@ class DetailCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final responsive = ResponsiveHelper(context);
+
     return Card(
-      margin: const EdgeInsets.symmetric(vertical: 10),
+      margin: EdgeInsets.symmetric(vertical: responsive.height(0.012)),
       elevation: 4,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-      shadowColor: Colors.blueAccent.withOpacity(0.2),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(responsive.width(0.04)),
+      ),
+      shadowColor: AppColors.colorBlue.withOpacity(0.2),
       child: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: EdgeInsets.all(responsive.width(0.045)),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              title,
-              style: const TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-                color: Colors.blueAccent,
-              ),
-            ),
-            const SizedBox(height: 8),
-            Text(
-              value,
-              style: TextStyle(fontSize: 16, color: Colors.grey.shade700),
-            ),
+            _buildTitle(responsive),
+            SizedBox(height: responsive.height(0.01)),
+            _buildValue(responsive),
           ],
         ),
       ),
+    );
+  }
+
+  // title text.
+  Widget _buildTitle(ResponsiveHelper responsive) {
+    return Row(
+      children: [
+        Text(
+          title,
+          style: TextThemes.headertextDetals.copyWith(
+            fontSize: responsive.width(0.045),
+          ),
+        ),
+      ],
+    );
+  }
+
+  // value text.
+  Widget _buildValue(ResponsiveHelper responsive) {
+    return Text(
+      value,
+      style: TextThemes.textDetals.copyWith(fontSize: responsive.width(0.04)),
     );
   }
 }

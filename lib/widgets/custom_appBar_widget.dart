@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:pokemon/constants/app_colors.dart';
+
+import '../constants/text_theme.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String text;
-  final bool isColorWhite;
-  final List<Widget>? actions;
+
+  final bool isBackButtonVisible;
 
   const CustomAppBar({
     Key? key,
     required this.text,
-    this.isColorWhite = false,
-    this.actions,
+    this.isBackButtonVisible = true,
   }) : super(key: key);
 
   @override
@@ -17,11 +19,16 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
-    final backgroundColor = isColorWhite ? Colors.white : Colors.blueAccent;
-    final textColor = isColorWhite ? Colors.blueAccent : Colors.white;
-
     return AppBar(
-      backgroundColor: backgroundColor,
+      leading:
+          isBackButtonVisible
+              ? IconButton(
+                onPressed: () => Navigator.pop(context),
+                icon: const Icon(Icons.arrow_back_ios, color: AppColors.white),
+              )
+              : null,
+
+      backgroundColor: AppColors.colorBlue,
       elevation: 0,
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.only(
@@ -29,19 +36,11 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
           bottomRight: Radius.circular(12),
         ),
       ),
- 
+
       title: Padding(
         padding: EdgeInsets.only(top: 10),
-        child: Text(
-          text,
-          style: TextStyle(
-            color: textColor,
-            fontSize: 20,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
+        child: Text(text, style: TextThemes.textTitle),
       ),
-      actions: actions,
     );
   }
 }
