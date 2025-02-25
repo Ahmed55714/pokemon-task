@@ -15,3 +15,16 @@ This Flutter app displays a list of Pokémon and allows users to view detailed P
 ## Demo Video
 
 
+---
+
+## **Setup Instructions**
+### **Prerequisites**
+Ensure you have the following installed:
+- **Flutter SDK**: [Install Here](https://flutter.dev/docs/get-started/install)
+- **Dart** (Comes with Flutter)
+- **Android Studio / VS Code** (Recommended for Flutter development)
+
+### **Clone the Repository**
+```sh
+git clone https://github.com/your-username/pokemon-flutter-app.git
+cd pokemon-flutter-app
