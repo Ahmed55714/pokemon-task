@@ -7,25 +7,29 @@ import '../../models/pokemon.dart';
 
 class PokemonBloc extends Bloc<PokemonEvent, PokemonState> {
   final ApiService apiService;
+  final List<Pokemon> _pokemonList = [];
+  bool _hasMore = true;
 
-  PokemonBloc({required this.apiService}) : super(PokemonInitialState()) {
+ PokemonBloc({required this.apiService}) : super(PokemonInitialState()) {
     on<FetchPokemonListEvent>((event, emit) async {
-      emit(PokemonLoadingState());
-      try {
-        final data = await apiService.fetchPokemonList(event.offset);
-        print("Fetched Pokemon List: $data");
+      if (!_hasMore) return;
+      if (_pokemonList.isEmpty) {
+        emit(PokemonLoadingState());
+      }
 
-        if (data.isEmpty) {
-          emit(PokemonErrorState(message: "No Pokemon found."));
+      try {
+        final newPokemons = await apiService.fetchPokemonList(event.offset);
+        
+        if (newPokemons.isEmpty) {
+          _hasMore = false;
         } else {
-          final pokemonList = data;
-          emit(
-            PokemonLoadedState(
-              pokemonList: pokemonList,
-              hasMore: data.isNotEmpty,
-            ),
-          );
+          _pokemonList.addAll(newPokemons);
         }
+
+        emit(PokemonLoadedState(
+          pokemonList: List.from(_pokemonList),
+          hasMore: _hasMore,
+        ));
       } catch (e) {
         emit(PokemonErrorState(message: e.toString()));
       }

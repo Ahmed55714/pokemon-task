@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       routes: {
         '/': (context) => HomeScreen(),
-        '/pokemonDetail': (context) => PokemonDetailScreen(),
+        '/pokemonDetail': (context) => PokemonDetailScreen(pokemonId: ModalRoute.of(context)!.settings.arguments as String),
       },
     );
   }

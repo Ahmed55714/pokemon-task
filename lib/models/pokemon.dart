@@ -4,25 +4,25 @@ class Pokemon {
   final String name;
   final String imageUrl;
   final String url;
-  final List<String> types;
+  final List<String> abilities;
 
   Pokemon({
     required this.name,
     required this.imageUrl,
     required this.url,
-    required this.types,
+    required this.abilities,
   });
 
   factory Pokemon.fromJson(Map<String, dynamic> json) {
-    List<String> types = [];
-    if (json['types'] != null) {
-      types = List<String>.from(
-        json['types'].map((type) => type['type']['name']),
+    List<String> abilities = [];
+    if (json['abilities'] != null) {
+      abilities = List<String>.from(
+        json['abilities'].map((ability) => ability['ability']['name']),
       );
     }
 
-    if (types.isEmpty) {
-      types = _generateRandomTypes();
+    if (abilities.isEmpty) {
+      abilities = _generateRandomAbilities();
     }
 
     return Pokemon(
@@ -30,23 +30,21 @@ class Pokemon {
       imageUrl:
           'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${json['url'].split('/')[6]}.png',
       url: json['url'],
-      types: types,
+      abilities: abilities,
     );
   }
 
-  // Generate a list of random types for testing
-  static List<String> _generateRandomTypes() {
+  // Generate a list of random abilities for testing
+  static List<String> _generateRandomAbilities() {
     final random = Random();
-    List<String> possibleTypes = [
-      'Fire',
-      'Water',
-      'Grass',
-      'Electric',
-      'Psychic',
-      'Bug',
-      'Ghost',
+    List<String> possibleAbilities = [
+      'Overgrow',
+      'Blaze',
+      'Torrent',
+      'Shield Dust',
+      'Compound Eyes',
+      'Adaptability',
     ];
-    // Return a random selection of types
-    return [possibleTypes[random.nextInt(possibleTypes.length)]];
+    return [possibleAbilities[random.nextInt(possibleAbilities.length)]];
   }
 }
