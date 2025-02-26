@@ -4,6 +4,4 @@ class ImagePaths {
 
   //general
   static const String pokemon = "${imagesBase}pokemonGame.png";
-
-  
 }
