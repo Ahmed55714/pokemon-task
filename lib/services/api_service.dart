@@ -9,7 +9,7 @@ class ApiService {
   Future<List<Pokemon>> fetchPokemonList(int offset) async {
     try {
       final response = await dio.get(
-        'https://pokeapi.co/api/v2/pokemon?limit=20&offset=$offset',
+        'https://pokeapi.co/api/v2/pokemon?limit=100&offset=$offset',
       );
       print("Fetched Pokemon List: ${response.data}");
 
