@@ -20,7 +20,7 @@ https://github.com/user-attachments/assets/7f0edcba-fdcc-412c-a360-ef956248e161
 ## **Setup Instructions**
 ### **Prerequisites**
 Ensure you have the following installed:
-- **Flutter SDK**: [Install Here](https://flutter.dev/docs/get-started/install)
+- **Flutter SDK latest version 3.29.0**: [Install Here](https://flutter.dev/docs/get-started/install)
 - **Dart** (Comes with Flutter)
 - **Android Studio / VS Code** (Recommended for Flutter development)
 
