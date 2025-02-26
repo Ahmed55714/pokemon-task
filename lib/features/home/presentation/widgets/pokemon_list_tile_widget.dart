@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../../../constants/app_colors.dart';
+import '../../../../constants/image_path.dart';
 import '../../../../constants/text_theme.dart';
 import '../../../../helper/responsive_helper.dart';
 
@@ -52,7 +53,7 @@ class PokemonListTile extends StatelessWidget {
         fit: BoxFit.cover,
         errorBuilder:
             (context, error, stackTrace) => Image.asset(
-              'assets/images/placeholder.png',
+              ImagePaths.pokemon,
               width: responsive.width(0.15),
               height: responsive.width(0.15),
               fit: BoxFit.cover,
@@ -65,7 +66,10 @@ class PokemonListTile extends StatelessWidget {
   Widget _buildPokemonName(ResponsiveHelper responsive) {
     return Text(
       name,
-      style: TextThemes.textTitle.copyWith(fontSize: responsive.width(0.045), color: AppColors.black),
+      style: TextThemes.textTitle.copyWith(
+        fontSize: responsive.width(0.045),
+        color: AppColors.black,
+      ),
     );
   }
 

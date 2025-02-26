@@ -5,6 +5,7 @@ import '../../../../blocs/pokemon/pokemon_bloc.dart';
 import '../../../../blocs/pokemon/pokemon_event.dart';
 import '../../../../blocs/pokemon/pokemon_state.dart';
 import '../../../../constants/app_colors.dart';
+import '../../../../constants/image_path.dart';
 import '../../../../helper/responsive_helper.dart';
 import '../../../../services/api_service.dart';
 import '../../../../widgets/custom_appBar_widget.dart';
@@ -48,7 +49,7 @@ class _HomeScreenState extends State<HomeScreen> {
     final responsive = ResponsiveHelper(context);
 
     return Scaffold(
-      appBar: CustomAppBar(text: 'Pokemon List', isBackButtonVisible: false,),
+      appBar: CustomAppBar(text: 'Pokemon List', isBackButtonVisible: false),
       body: BlocProvider(
         create: (context) => _pokemonBloc,
         child: BlocBuilder<PokemonBloc, PokemonState>(
@@ -81,13 +82,32 @@ class _HomeScreenState extends State<HomeScreen> {
     return Center(
       child: Padding(
         padding: EdgeInsets.all(responsive.width(0.04)),
-        child: Text(
-          'Error: $message',
-          style: TextStyle(
-            color: AppColors.redOne,
-            fontSize: responsive.width(0.045),
-          ),
-          textAlign: TextAlign.center,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Image.asset(
+              ImagePaths.pokemon,
+              width: responsive.width(0.25),
+              height: responsive.width(0.25),
+              fit: BoxFit.cover,
+            ),
+            Container(
+        decoration: BoxDecoration(
+
+          borderRadius: BorderRadius.circular(responsive.width(0.02)),
+          color: AppColors.greyLight,
+        ),
+              padding: EdgeInsets.all(responsive.width(0.02)),
+              child: Text(
+                'Error loading Pokémon list',
+                style: TextStyle(
+                  color: AppColors.grey,
+                  fontSize: responsive.width(0.045),
+                ),
+                textAlign: TextAlign.center,
+              ),
+            ),
+          ],
         ),
       ),
     );
