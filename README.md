@@ -14,7 +14,7 @@ This Flutter app displays a list of Pokémon and allows users to view detailed P
 
 ## Demo Video
 https://github.com/user-attachments/assets/7f0edcba-fdcc-412c-a360-ef956248e161
-
+https://github.com/user-attachments/assets/758f582f-0aad-4226-b470-84a5b1f4946f
 ---
 
 ## **Setup Instructions**
